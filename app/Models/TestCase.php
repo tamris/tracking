@@ -52,7 +52,7 @@ class TestCase extends Model
             'Planned'     => 0,
             'In Progress' => 50,
             'Passed'      => 100,
-            'Failed'      => 100,
+            'Failed'      => 0,
             default       => 0,
         };
     }

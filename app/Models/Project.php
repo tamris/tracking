@@ -37,6 +37,11 @@ class Project extends Model
         'progress'   => 'integer',
     ];
 
+    protected $appends = [
+        'overall_progress', 
+        'sdlc_progress'
+    ];
+
     /* =====================================================
      | SCOPE
      ===================================================== */
