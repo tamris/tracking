@@ -83,9 +83,18 @@ class ProjectController extends Controller
      * GET /api/projects/{id}
      * Detail 1 Project
      */
+   /**
+     * GET /api/projects/{id}
+     * Detail 1 Project + Activities (Timeline)
+     */
     public function show(Request $request, $id)
     {
-        $project = Project::where('user_id', $request->user()->id)
+        // Tambahkan ->with('activities') agar timeline terambil
+        $project = Project::with(['activities' => function($q) {
+                // Urutkan dari yang paling baru
+                $q->latest('occurred_at'); 
+            }])
+            ->where('user_id', $request->user()->id)
             ->where('id', $id)
             ->first();
 

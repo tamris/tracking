@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardApiController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\RequirementApiController;
 use App\Http\Controllers\Api\DesignSpecApiController;
@@ -29,6 +30,8 @@ Route::middleware('auth:sanctum')->group(function () {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logout sukses']);
     });
+
+    Route::get('/dashboard-stats', [DashboardApiController::class, 'index']);
 
     // --- Project Management ---
     Route::get('/projects', [ProjectController::class, 'index']);
@@ -66,4 +69,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // DELETE Planning File
     Route::delete('/projects/{project}/planning/files/{file}', [\App\Http\Controllers\Api\PlanningApiController::class, 'destroyFile']);
+
+    Route::get('/reports', [\App\Http\Controllers\Api\ReportApiController::class, 'index']);
+
+    Route::get('/profile', [\App\Http\Controllers\Api\ProfileApiController::class, 'show']);
+    Route::put('/profile', [\App\Http\Controllers\Api\ProfileApiController::class, 'update']);
 });
